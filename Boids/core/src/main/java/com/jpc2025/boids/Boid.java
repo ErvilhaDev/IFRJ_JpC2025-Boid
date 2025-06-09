@@ -1,5 +1,6 @@
 package com.jpc2025.boids;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,7 +15,7 @@ public class Boid {
 	// Parameters
 	float minspeed = 3f;
 	float maxspeed = 6f;
-	float turnfactor = 0.2f;
+	float turnfactor = 1f;
 	float visualRange = 40f;
 	float protectedRange = 8f;
 	float centeringfactor = 0.0005f;
@@ -52,7 +53,7 @@ public class Boid {
         sprite.draw(batch);
     }
 	
-	public void update(ArrayList<Boid> allBoids, float screenWidth, float screenHeight) {
+	public void update(List<Boid> allBoids, float screenWidth, float screenHeight) {
 		float close_dx = 0, close_dy = 0;
 		float xpos_avg = 0, ypos_avg = 0;
 		float xvel_avg = 0, yvel_avg = 0;
@@ -114,6 +115,8 @@ public class Boid {
 		y += vy;
 		sprite.setPosition(x, y);
 		sprite.setRotation((float)Math.toDegrees(Math.atan2(vy, vx)));
+		
+		
     }
 	
 }
