@@ -12,10 +12,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
-    private Texture image;
     private Texture boidTexture;
     
     private ArrayList<Boid> boids;
+    
+    private final int arrayBoids = 500;
 
     @Override
     public void create() {
@@ -23,24 +24,22 @@ public class Main extends ApplicationAdapter {
         boidTexture = new Texture("bird.png");
         boids = new ArrayList<>();
         
-        boids.add(new Boid(boidTexture, 100, 150));
+        for (int i = 0; i < arrayBoids; i++) {
+			float x = (float)Math.random() * Gdx.graphics.getWidth();
+			float y = (float)Math.random() * Gdx.graphics.getHeight();
+			boids.add(new Boid(boidTexture, x, y));
+		}
         
     }
-    
-    
 
     @Override
     public void render() {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        
-        for (Boid boid : boids) {
-            boid.update();
-        }
-        
         batch.begin();
         for (Boid boid : boids) {
-            boid.render(batch);
-        }
+			boid.update(boids, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			boid.render(batch);
+		}
         batch.end();
     }
 
